@@ -1,0 +1,24 @@
+{
+  "name": "create-fullstack-webpack-app",
+  "version": "1.0.0",
+  "description": "An app that makes building webpacks for fullstack applications simple.",
+  "main": "scripts/script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node scripts/script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xkiso/create-fullstack-webpack-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xkiso/create-fullstack-webpack-app/issues"
+  },
+  "homepage": "https://github.com/xkiso/create-fullstack-webpack-app#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3"
+  }
+}
