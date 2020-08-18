@@ -1,1 +1,1 @@
-# fullstack-webpack-app
+# create-fullstack-webpack-app
