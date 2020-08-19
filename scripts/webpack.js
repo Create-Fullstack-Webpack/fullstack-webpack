@@ -10,13 +10,261 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 function webpack(answers) {
 
-  const execStr = 'npm install';
+  // this object will become the webpack.
+  let obj = `
+  module.exports = {
+    mode: process.env.NODE_ENV,
+    entry: [
+      path.resolve(process.cwd(), './client/src/index.js'),
+    ],
+    output: {
+      path: path.resolve(process.cwd(), 'dist'),
+      filename: 'bundle.js',
+      publicPath: '/'
+    },
+    devServer: {
+      publicPath: '/dist',
+      proxy: {
+        '/': 'http://localhost:3000',
+      },
+      hot: true,
+    },
+  `
+  
+  let headers = `const path = require('path');\n`;
+  let moduleRules = [];
+  let resolveExtensions = "'.js', ";
+  let webpackPlugins = [];
+  
+  const selectionConditions = {}; //will store user selections that may alter how other loaders/rules are added to the webpack Obj above.
+  
+  // Question 1: frontend
+  switch (answers['frontend']) {
+    case 'React':
+      selectionConditions.react = 'react';
+
+      // Should we remove from this section since it's covered under transpilers?
+      // moduleRules.push(`
+      // {
+      //   test: /\.(js|jsx)$/,
+      //   exclude: /node_modules/,
+      //   use: {
+      //     loader: 'babel-loader',
+      //     options: {
+      //       presets: ['@babel/preset-react', '@babel/preset-env'],
+      //     },
+      //   },
+      // }`);
+      // resolveExtensions += `'.js', '.jsx'`;
+      break;
+    default:
+      // console.log('An error has occured with your selection, frontend');
+      break;
+  }
+
+  // Question 2: transpiler
+  if (answers.transpiler.length > 1) {
+    moduleRules.push(`
+      {
+        test: /\.ts(x)?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/
+      }`);
+    resolveExtensions += `'.tsx', '.ts', `;
+    moduleRules.push(`
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-react', '@babel/preset-env'],
+      },
+    },
+  }`);
+    resolveExtensions += `'.jsx', `;
+
+    generateFrontEnd('React', 'Typescript');
+
+  } else if (answers.transpiler[0] == 'Typescript') {
+    moduleRules.push(`
+    {
+      test: /\.ts(x)?$/,
+      loader: 'ts-loader',
+      exclude: /node_modules/
+    }
+  `);
+    resolveExtensions += `'.tsx', '.ts', `;
+
+    generateFrontEnd('React', 'Typescript');
+
+  } else { // Babel
+    moduleRules.push(`
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react', '@babel/preset-env'],
+          },
+        },
+      }`);
+    resolveExtensions += `'.jsx', `;
+
+    generateFrontEnd('React', 'Babel');
+  }
+
+  // Question 3: backend
+  switch (answers['backend']) {
+    case 'Express':
+      generateBackend('Express');
+      break;
+    default:
+      // console.log('An error has occured with your selection, backend.');
+      break;
+  }
+
+  // Question 4: test
+  switch (answers['test']) {
+    case 'Jest':
+      generateTest('Jest');
+      break;
+    case 'Mocha':
+      generateTest('Mocha');
+      moduleRules.push(`
+    {
+      test: /test\.js$/,
+      use: 'mocha-loader',
+      exclude: /node_modules/,
+    }`);
+      break;
+    default:
+      // console.log('An error has occured with your selection, test');
+      break;
+  }
+
+  // Question 5: styling
+  answers['styling'].forEach(styling => {
+    switch (styling) {
+      case 'CSS':
+        selectionConditions.css = 'css';
+        moduleRules.push(`
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            'css-loader'
+          ]
+        }`);
+        break;
+      case 'SASS/SCSS':
+        selectionConditions.sass = 'sass';
+        moduleRules.push(`
+        {
+          test: /\.scss$/,
+          use: [
+            'style-loader',
+            'css-loader',
+            'sass-loader'
+          ]
+        }`);
+        break;
+      default:
+        break;
+    }
+  });
+
+  // Question 6: plugins
+  answers['plugins'].forEach(plugins => {
+    switch (plugins) {
+      case 'HtmlWebpackPlugin':
+        headers += `const HtmlWebpackPlugin = require('html-webpack-plugin');\n`;
+        webpackPlugins.push(
+          `new HtmlWebpackPlugin({appMountId: 'app',filename: 'index.html'})`);
+        break;
+      case 'CleanWebpackPlugin':
+        headers += `const MiniCssExtractPlugin = require('mini-css-extract-plugin');\n`;
+        webpackPlugins.push(
+          `new CleanWebpackPlugin()`
+        );
+        break;
+      case 'MiniCssExtractPlugin':
+        headers += `const { CleanWebpackPlugin } = require('clean-webpack-plugin');\n`;
+        // if (selectionConditions.css || selectionConditions.scss) {
+        //   //loop here through the rules to find the css test, then push the plugin into the rules array
+        //   //loop through the rules to find the scss test, then push the plugin into the rules array
+        //   obj.module.rules.forEach(el => {
+        //     if (el.test === /\.css$/) el.use.push("MiniCssExtractPlugin.loader");
+        //     if (el.test === /\.scss$/) el.use.push("MiniCssExtractPlugin.loader");
+        //   })
+        // }
+
+        webpackPlugins.push(
+          `new MiniCssExtractPlugin()`
+        );
+        break;
+      default:
+        // console.log('An error has occured with your selection, plugins');
+        break;
+    }
+  });
+
+
+  //7. Are you using images or font-families?',
+  switch (answers['images and font']) {
+    case 'Yes':
+      moduleRules.push(`
+    {
+      test: /\.(png|svg|jpg|gif|woff|woff2|eot|ttf|otf)$/,
+      use: [
+        'file-loader',
+      ],
+    }`);
+      break;
+    default:
+      break;
+  }
+
+  // module.rules
+  obj += '  module: {\n    rules: [\n';
+  moduleRules.forEach(value => {
+    obj += value + ",";
+  })
+  obj += '\n' + ']},';
+
+  // resolve.extensions
+  obj += 'resolve: {\n\textensions: [';
+  obj += resolveExtensions;
+  obj += ']},\n';
+
+  // plugins
+  obj += 'plugins: [\n';
+  webpackPlugins.forEach(value => {
+    obj += "  " + value + ", \n";
+  })
+  obj += ']\n';
+  obj += '}';
+
+  obj = headers + obj;
+
+  fs.writeFileSync(process.cwd() + '/webpack.config.js', obj, 'utf-8');
+  console.log(obj);
+}
+
+module.exports = webpack;
+
+
+
+/*
+  const devDependencies = [];
+  const dependencies = [];
 
   //this object will become the webpack. 
   const obj = {
     mode: process.env.NODE_ENV,
     entry: [
-      "path.resolve(process.cwd(), './client/src/index.js')",
+      path.resolve(process.cwd(), './client/src/index.js'),
     ],
     output: {
       path: path.resolve(process.cwd(), 'dist'),
@@ -83,7 +331,7 @@ function webpack(answers) {
     obj.module.rules.push(
       {
         test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -109,7 +357,7 @@ function webpack(answers) {
     obj.module.rules.push(
       {
         test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -219,16 +467,23 @@ function webpack(answers) {
     }
   });
 
+  function htmlWebpackPlugin() {
+    return () => {
+      return new HtmlWebpackPlugin({appMountId: 'app',filename: 'index.html'});
+    }
+  }
+
   // Question 6: plugins
   answers['plugins'].forEach(plugins => {
     switch (plugins) {
       case 'HtmlWebpackPlugin':
-        obj.plugins.push(
-          "new HtmlWebpackPlugin({appMountId: 'app',filename: 'index.html'})");
+        obj.plugins.push(htmlWebpackPlugin());
+        // obj.plugins.push(
+        //   new HtmlWebpackPlugin({appMountId: 'app',filename: 'index.html'}));
         break;
       case 'CleanWebpackPlugin':
         obj.plugins.push(
-          "new CleanWebpackPlugin()"
+          new CleanWebpackPlugin()
         );
         break;
       case 'MiniCssExtractPlugin':
@@ -267,9 +522,14 @@ function webpack(answers) {
         break;
     }
 
-    fs.writeFileSync(process.cwd() + '/webpack.config.js', JSON.stringify(obj, null, 2) , 'utf-8');
-   console.log(obj);
-    //fs.writeFileSync('./data.json', JSON.stringify(obj, null, 2) , 'utf-8');
-}
+  for (let i = 0; i < obj.plugins.length; i++) {
+    console.log('obj.plugins[i]' , obj.plugins[i]);
+    console.log('typeof obj.plugins[i]', typeof obj.plugins[i]);
+    obj.plugins[i] = obj.plugins[i]();
+  }
+  console.log(obj);
+  fs.writeFileSync(process.cwd() + '/webpack.config.js', JSON.stringify(obj, null, 2) , 'utf-8');
 
-module.exports = webpack;
+    //fs.writeFileSync('./data.json', JSON.stringify(obj, null, 2) , 'utf-8');
+
+*/  
