@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #282C34;
+}
+
+.App-header {
+  background: #61DAFB;
+}

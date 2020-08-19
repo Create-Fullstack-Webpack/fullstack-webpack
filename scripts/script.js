@@ -15,15 +15,15 @@ inquirer
         'React',
       ],
     },
-    // {
-    //   type: 'list',
-    //   name: 'backend',
-    //   message: '2. Are you using a Backend framework?',
-    //   choices: [
-    //     'Not now',
-    //     'Express'
-    //   ],
-    // },
+    {
+      type: 'list',
+      name: 'backend',
+      message: '2. Are you using a Backend framework?',
+      choices: [
+        'Not now',
+        'Express'
+      ],
+    },
     {
       type: 'list',
       name: 'test',

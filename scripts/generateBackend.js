@@ -1,4 +1,4 @@
-// const path = require('path');
+const path = require('path');
 const fs = require('fs');
 const server = require('./data/backend/server.js');
 
@@ -19,3 +19,5 @@ function generateBackend( framework ) {
     });
   // }
 }
+
+module.exports = generateBackend;
