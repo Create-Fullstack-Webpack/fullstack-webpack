@@ -1,3 +1,4 @@
+const generateTest = require('./generateTest');
 const generateFrontEnd = require('./generateFrontEnd');
 
 function webpack(answers) {
@@ -28,19 +29,19 @@ function webpack(answers) {
   //   default:
   // }
 
-  // // Question 3: test
-  // switch(answers['test']) {
-  //   case 'Not now':
-  //     // logic
-  //     break;
-  //   case 'Jest':
-  //     // logic
-  //     break;
-  //   case 'Mocha':
-  //     // logic
-  //     break;
-  //   default:
-  // }
+  // Question 3: test
+  switch(answers['test']) {
+    case 'Not now':
+      // logic
+      break;
+    case 'Jest':
+      generateTest('Jest');
+      break;
+    case 'Mocha':
+      generateTest('Mocha');
+      break;
+    default:
+  }
   
   // // Question 4: ui
   // switch(answers['ui']) {

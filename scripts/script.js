@@ -24,19 +24,19 @@ inquirer
     //     'Express'
     //   ],
     // },
-    // {
-    //   type: 'list',
-    //   name: 'test',
-    //   message: '3. Are you using a Test framework?',
-    //   choices: [
-    //     'Not now',
-    //     'Jest',
-    //     'Mocha'
-    //   ],
-    //   // filter: function (val) {
-    //   //   return val.toLowerCase();
-    //   // },
-    // },
+    {
+      type: 'list',
+      name: 'test',
+      message: '3. Are you using a Test framework?',
+      choices: [
+        'Not now',
+        'Jest',
+        'Mocha'
+      ],
+      // filter: function (val) {
+      //   return val.toLowerCase();
+      // },
+    },
     // {
     //   type: 'list',
     //   name: 'ui',
