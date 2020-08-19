@@ -11,14 +11,26 @@ inquirer
       name: 'frontend',
       message: '1. Are you using a Frontend framework?',
       choices: [
-        'Not now',
         'React',
+      ],
+    },
+    {
+      type: 'checkbox', //allows user to select multiple options
+      name: 'transpiler',
+      message: '2. Which transpiler are you using?',
+      choices: [
+        {
+          name: 'Babel'
+        },
+        {
+          name: 'Typescript'
+        }
       ],
     },
     {
       type: 'list',
       name: 'backend',
-      message: '2. Are you using a Backend framework?',
+      message: '3. Are you using a Backend framework?',
       choices: [
         'Not now',
         'Express'
@@ -27,7 +39,7 @@ inquirer
     {
       type: 'list',
       name: 'test',
-      message: '3. Are you using a Test framework?',
+      message: '4. Are you using a Test framework?',
       choices: [
         'Not now',
         'Jest',
@@ -46,76 +58,51 @@ inquirer
     //     'Bootstrap'
     //   ],
     // },
-    // {
-    //   type: 'checkbox', //allows user to select multiple options
-    //   name: 'transpiler',
-    //   message: '5. Are you using a Transpiler?',
-    //   choices: [
-    //     {
-    //       name: 'Not now'
-    //     },
-    //     {
-    //       name: 'Babel'
-    //     },
-    //     {
-    //       name: 'Typescript'
-    //     }
-    //   ],
-    // },
-    // {
-    //   type: 'checkbox', //allows user to select multiple options
-    //   name: 'styling',
-    //   message: '6. Are you using Styling?',
-    //   choices: [
-    //     {
-    //       name: 'Not now'
-    //     },
-    //     {
-    //       name: 'CSS'
-    //     },
-    //     {
-    //       name: 'SASS'
-    //     },
-    //     {
-    //       name: 'SCSS'
-    //     }
-    //   ],
-    // },
-    // {
-    //   type: 'checkbox',
-    //   name: 'linting',
-    //   message: '7. Are you using Linting?',
-    //   choices: [
-    //     {
-    //       name: 'Not now'
-    //     },
-    //     {
-    //       name: 'ESLint'
-    //     },
-    //     {
-    //       name: 'Prettier'
-    //     },
-    //   ],
-    // },
-    // {
-    //   type: 'checkbox', //allows user to select multiple options
-    //   name: 'plugins',
-    //   message: '8. Are you using Webpack Plugins?',
-    //   choices: [
-    //     {
-    //       name: 'Not now',
-    //     },
-    //     {
-    //       name: 'HtmlWebpackPlugin',
-    //     },
-    //     {
-    //       name: 'CleanWebpackPlugin',
-    //     },
-    //     {
-    //       name: 'MiniCssExtractPlugin'
-    //     }
-    //   ],
-    // },
+
+    {
+      type: 'checkbox', //allows user to select multiple options
+      name: 'styling',
+      message: '5. Are you using Styling?',
+      choices: [
+        {
+          name: 'Not now'
+        },
+        {
+          name: 'CSS'
+        },
+        {
+          name: 'SASS/SCSS'
+        }
+      ],
+    },
+    {
+      type: 'checkbox', //allows user to select multiple options
+      name: 'plugins',
+      message: '6. Are you using Webpack Plugins?',
+      choices: [
+        {
+          name: 'Not now',
+        },
+        {
+          name: 'HtmlWebpackPlugin',
+        },
+        {
+          name: 'CleanWebpackPlugin',
+        },
+        {
+          name: 'MiniCssExtractPlugin'
+        }
+      ],
+    },
+    {
+      type: 'list',
+      name: 'images and font',
+      message: '7. Are you using images or font-families?',
+      choices: [
+        'Not now',
+        'Yes'
+      ],
+    }
   ])
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
     console.log(answers);

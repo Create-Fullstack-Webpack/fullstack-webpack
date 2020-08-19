@@ -20,5 +20,11 @@
   "homepage": "https://github.com/xkiso/create-fullstack-webpack-app#readme",
   "dependencies": {
     "inquirer": "^7.3.3"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.10.0",
+    "webpack": "^4.44.1"
   }
 }
