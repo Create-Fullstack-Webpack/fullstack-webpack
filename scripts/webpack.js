@@ -262,6 +262,8 @@ function webpack(answers) {
         console.log('An error has occured with your selection, plugins')
     }
   });
+
+  return obj;
 }
 
 module.exports = { webpack };
