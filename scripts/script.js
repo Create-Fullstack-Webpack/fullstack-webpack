@@ -15,15 +15,15 @@ inquirer
         'React',
       ],
     },
-    {
-      type: 'list',
-      name: 'backend',
-      message: '2. Are you using a Backend framework?',
-      choices: [
-        'Not now',
-        'Express'
-      ],
-    },
+    // {
+    //   type: 'list',
+    //   name: 'backend',
+    //   message: '2. Are you using a Backend framework?',
+    //   choices: [
+    //     'Not now',
+    //     'Express'
+    //   ],
+    // },
     {
       type: 'list',
       name: 'test',
@@ -37,89 +37,88 @@ inquirer
       //   return val.toLowerCase();
       // },
     },
-    {
-      type: 'list',
-      name: 'ui',
-      message: '4. Are you using a UI framework?',
-      choices: [
-        'Not now',
-        'Bootstrap'
-      ],
-    },
-    {
-      type: 'checkbox', //allows user to select multiple options
-      name: 'transpiler',
-      message: '5. Are you using a Transpiler?',
-      choices: [
-        {
-          name: 'Not now'
-        },
-        {
-          name: 'Babel'
-        },
-        {
-          name: 'Typescript'
-        }
-      ],
-    },
-    {
-      type: 'checkbox', //allows user to select multiple options
-      name: 'styling',
-      message: '6. Are you using Styling?',
-      choices: [
-        {
-          name: 'Not now'
-        },
-        {
-          name: 'CSS'
-        },
-        {
-          name: 'SASS'
-        },
-        {
-          name: 'SCSS'
-        }
-      ],
-    },
-    {
-      type: 'checkbox',
-      name: 'linting',
-      message: '7. Are you using Linting?',
-      choices: [
-        {
-          name: 'Not now'
-        },
-        {
-          name: 'ESLint'
-        },
-        {
-          name: 'Prettier'
-        },
-      ],
-    },
-    {
-      type: 'checkbox', //allows user to select multiple options
-      name: 'plugins',
-      message: '8. Are you using Webpack Plugins?',
-      choices: [
-        {
-          name: 'Not now',
-        },
-        {
-          name: 'HtmlWebpackPlugin',
-        },
-        {
-          name: 'CleanWebpackPlugin',
-        },
-        {
-          name: 'MiniCssExtractPlugin'
-        }
-      ],
-    },
+    // {
+    //   type: 'list',
+    //   name: 'ui',
+    //   message: '4. Are you using a UI framework?',
+    //   choices: [
+    //     'Not now',
+    //     'Bootstrap'
+    //   ],
+    // },
+    // {
+    //   type: 'checkbox', //allows user to select multiple options
+    //   name: 'transpiler',
+    //   message: '5. Are you using a Transpiler?',
+    //   choices: [
+    //     {
+    //       name: 'Not now'
+    //     },
+    //     {
+    //       name: 'Babel'
+    //     },
+    //     {
+    //       name: 'Typescript'
+    //     }
+    //   ],
+    // },
+    // {
+    //   type: 'checkbox', //allows user to select multiple options
+    //   name: 'styling',
+    //   message: '6. Are you using Styling?',
+    //   choices: [
+    //     {
+    //       name: 'Not now'
+    //     },
+    //     {
+    //       name: 'CSS'
+    //     },
+    //     {
+    //       name: 'SASS'
+    //     },
+    //     {
+    //       name: 'SCSS'
+    //     }
+    //   ],
+    // },
+    // {
+    //   type: 'checkbox',
+    //   name: 'linting',
+    //   message: '7. Are you using Linting?',
+    //   choices: [
+    //     {
+    //       name: 'Not now'
+    //     },
+    //     {
+    //       name: 'ESLint'
+    //     },
+    //     {
+    //       name: 'Prettier'
+    //     },
+    //   ],
+    // },
+    // {
+    //   type: 'checkbox', //allows user to select multiple options
+    //   name: 'plugins',
+    //   message: '8. Are you using Webpack Plugins?',
+    //   choices: [
+    //     {
+    //       name: 'Not now',
+    //     },
+    //     {
+    //       name: 'HtmlWebpackPlugin',
+    //     },
+    //     {
+    //       name: 'CleanWebpackPlugin',
+    //     },
+    //     {
+    //       name: 'MiniCssExtractPlugin'
+    //     }
+    //   ],
+    // },
   ])
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
     console.log(answers);
-    console.log("Answer to first question: ", answers["frontend"]);
 
     webpack(answers);
 
