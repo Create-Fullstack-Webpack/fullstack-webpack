@@ -120,10 +120,10 @@ inquirer
 
      
 
-    fs.appendFileSync(path.resolve(__dirname, '../testFile.txt'), 'Hello!', err => {
-      if (err) throw err;
-      console.log('File created!');
-    });
+    // fs.appendFileSync(path.resolve(__dirname, '../testFile.txt'), 'Hello!', err => {
+    //   if (err) throw err;
+    //   console.log('File created!');
+    // });
 
     fs.writeFile(path.resolve(__dirname, '../testFile.txt'), 'Hi!', err => {
       if (err) return console.log(err);
