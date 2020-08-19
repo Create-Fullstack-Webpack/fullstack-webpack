@@ -1,5 +1,6 @@
 const generateTest = require('./generateTest');
 const generateFrontEnd = require('./generateFrontEnd');
+const generateBackend = require('./generateBackend');
 
 function webpack(answers) {
   
@@ -18,16 +19,16 @@ function webpack(answers) {
     default:
   }
 
-  // // Question 2: backend
-  // switch(answers['backend']) {
-  //   case 'Not now':
-  //     // logic
-  //     break;
-  //   case 'Express':
-  //     // logic
-  //     break;
-  //   default:
-  // }
+  // Question 2: backend
+  switch(answers['backend']) {
+    case 'Not now':
+      // logic
+      break;
+    case 'Express':
+      generateBackend('Express')
+      break;
+    default:
+  }
 
   // Question 3: test
   switch(answers['test']) {
