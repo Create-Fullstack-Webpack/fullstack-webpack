@@ -1,5 +1,6 @@
 const generateTest = require('./generateTest');
 const generateFrontEnd = require('./generateFrontEnd');
+const generateBackend = require('./generateBackend');
 
 function webpack(answers) {
 
@@ -66,23 +67,21 @@ function webpack(answers) {
       console.log('An error has occured with your selection, frontend');
   }
 
-  // // Question 2: backend
-  // switch(answers['backend']) {
   // Question 2: backend
-  // switch (answers['backend']) {
-  //   case 'Not now':
-  //     // logic
-  //     break;
-  //   case 'Express':
-  //     // logic
-  //     break;
-  //   default:
-  //     obj.output =  {path: path.resolve(__dirname, 'dist'),
-  //     filename: 'bundle.js'}
-  //     break;
-  //   default:
-  //   console.log('An error has occured with your selection, backend.');
-  // }
+  
+  switch (answers['backend']) {
+    case 'Not now':
+      break;
+    case 'Express':
+      generateBackend('Express')
+      obj.output = {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js'
+      }
+      break;
+    default:
+      console.log('An error has occured with your selection, backend.');
+  }
 
   // Question 3: test
   switch (answers['test']) {
@@ -106,7 +105,7 @@ function webpack(answers) {
     default:
       console.log('An error has occured with your selection, test');
   }
-  
+
 
   // Question 4: ui
   switch (answers['ui']) {
