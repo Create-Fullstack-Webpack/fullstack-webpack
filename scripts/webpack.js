@@ -1,4 +1,3 @@
-
 function webpack(answers) {
   
   let execStr = "npm install ";
@@ -11,6 +10,7 @@ function webpack(answers) {
       break;
     case 'React':
       // logic
+      console.log('Hit React switch!')
       break;
     default:
   }
@@ -68,38 +68,40 @@ function webpack(answers) {
 
   // Question 6: styling
   answers['styling'].forEach( styling => {
-  switch(styling) {
-    case 'Not now':
-      // logic
-      break;
-    case 'CSS':
-      // logic
-      break;
-    case 'SASS':
-      //logic
-      break;
-    case 'SCSS':
-      //logic
-      break;
-    default:
-  }
+    switch(styling) {
+      case 'Not now':
+        // logic
+        break;
+      case 'CSS':
+        // logic
+        break;
+      case 'SASS':
+        //logic
+        break;
+      case 'SCSS':
+        //logic
+        break;
+      default:
+    }
   });
 
-  // Question 7: styling
-  switch(styling) {
-    case 'Not now':
-      // logic
-      break;
-    case 'ESLint':
-      // logic
-      break;
-    case 'Prettier':
-      //logic
-      break;
-    default:
-  }
+  // Question 7: linting
+  answers['linting'].forEach ( linting => {
+    switch(linting) {
+      case 'Not now':
+        // logic
+        break;
+      case 'ESLint':
+        // logic
+        break;
+      case 'Prettier':
+        //logic
+        break;
+      default:
+    }
+  });
 
-        // Question 8: styling
+  // Question 8: plugins
   answers['plugins'].forEach( plugins => {
     switch(plugins) {
       case 'Not now':
@@ -119,4 +121,4 @@ function webpack(answers) {
   });
 }
 
-module.exports = { webpack };
+module.exports = webpack;

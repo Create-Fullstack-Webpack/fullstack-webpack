@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const webpack = require('./webpack');
 
 inquirer
   .prompt([
@@ -81,13 +82,19 @@ inquirer
       ],
     },
     {
-      type: 'list',
+      type: 'checkbox',
       name: 'linting',
       message: '7. Are you using Linting?',
       choices: [
-        'Not now',
-        'ESLint',
-        'Prettier'
+        {
+          name: 'Not now'
+        },
+        {
+          name: 'ESLint'
+        },
+        {
+          name: 'Prettier'
+        },
       ],
     },
     {
