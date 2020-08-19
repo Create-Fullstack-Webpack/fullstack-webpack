@@ -1,3 +1,5 @@
+const generateTest = require('./generateTest');
+
 function webpack(answers) {
   
   let execStr = "npm install ";
@@ -32,10 +34,10 @@ function webpack(answers) {
       // logic
       break;
     case 'Jest':
-      // logic
+      generateTest('Jest');
       break;
     case 'Mocha':
-      // logic
+      generateTest('Mocha');
       break;
     default:
   }

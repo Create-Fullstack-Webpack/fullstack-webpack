@@ -120,22 +120,8 @@ inquirer
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
     console.log(answers);
     console.log("Answer to first question: ", answers["frontend"]);
-    console.log('dirname', __dirname);
-    console.log('cwd', process.cwd());
 
     webpack(answers);
-
-     
-
-    fs.appendFileSync(path.resolve(__dirname, '../testFile.txt'), 'Hello!', err => {
-      if (err) throw err;
-      console.log('File created!');
-    });
-
-    fs.writeFile(path.resolve(__dirname, '../testFile.txt'), 'Hi!', err => {
-      if (err) return console.log(err);
-      console.log('testFile.txt');
-    });
 
     // exec('npm install express', (err, stdout, stderr) => {
     //   if (err) {
