@@ -1,14 +1,16 @@
 const fs = require('fs');
 const Appjs = require('./data/frontend/App.js-content');
-const Appts = require('./data/frontend/App.ts-content');
+const Appts = require('./data/frontend/App.tsx-content');
 const indexjs = require('./data/frontend/index.js-content');
-const indexts = require('./data/frontend/index.ts-content');
+const indexts = require('./data/frontend/index.tsx-content');
 const indexhtml = require('./data/frontend/index.html-content');
 const indexCssSassScss = require('./data/frontend/index.cssSassScss-content');
+const tsconfigjson = require('./data/frontend/tsconfig.json-content');
 
 function generateFrontEnd(technologies) {
 
   const { framework, transpiler, styling } = technologies;
+  let indexFile;
 
   if (framework === 'React') {
   let dir = process.cwd() + '/client/';
@@ -28,15 +30,23 @@ function generateFrontEnd(technologies) {
         // Transpilers
         if (transpiler === 'Typescript') {
           
-          fs.writeFileSync(dir + 'App.ts', Appts.trim(), err => {
+          indexFile = 'Typescript';
+
+          fs.writeFileSync(dir + 'App.tsx', Appts.trim(), err => {
             if (err) return console.log('fs.writeFile error!', err);
           });
           
-          fs.writeFileSync(dir + 'index.ts', indexts.trim(), err => {
+          fs.writeFileSync(dir + 'index.tsx', indexts.trim(), err => {
             if (err) return console.log('fs.writeFile error!', err);
           });
         
+          fs.writeFileSync(process.cwd() + '/tsconfig.json', tsconfigjson.trim(), err => {
+            if (err) return console.log('fs.writeFile error!', err);
+          });
+
         } else if (transpiler === 'Babel') {
+
+          indexFile = 'Babel';
           
           fs.writeFileSync(dir + 'App.js', Appjs.trim(), err => {
             if (err) return console.log('fs.writeFile error!', err);
@@ -49,13 +59,34 @@ function generateFrontEnd(technologies) {
 
         // Styling
         if (styling === 'CSS') {
+          
           fs.writeFileSync(dir + 'index.css', indexCssSassScss.trim(), err => {
             if (err) return console.log('fs.writeFile error!', err);
           });
-        } else if (styling === 'SASS/SCSS')
+          if (indexFile == 'Babel') {
+            fs.writeFileSync(dir + 'index.js', `import './index.css';\n` + indexjs.trim(), err => {
+              if (err) return console.log('fs.writeFile error!', err);
+            });
+          } else if (indexFile == 'Typescript') {
+            fs.writeFileSync(dir + 'index.tsx', `import './index.css';\n` + indexts.trim(), err => {
+              if (err) return console.log('fs.writeFile error!', err);
+            });
+          }
+
+        } else if (styling === 'SASS/SCSS') {
           fs.writeFileSync(dir + 'index.scss', indexCssSassScss.trim(), err => {
             if (err) return console.log('fs.writeFile error!', err);
           });
+          if (indexFile == 'Babel') {
+            fs.writeFileSync(dir + 'index.js', `import './index.scss';\n` + indexjs.trim(), err => {
+              if (err) return console.log('fs.writeFile error!', err);
+            });
+          } else if (indexFile == 'Typescript') {
+            fs.writeFileSync(dir + 'index.tsx', `import './index.scss';\n` + indexts.trim(), err => {
+              if (err) return console.log('fs.writeFile error!', err);
+            });
+          }
+        }
       });
     });
   }

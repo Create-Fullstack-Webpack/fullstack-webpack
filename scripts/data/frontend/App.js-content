@@ -1,13 +1,15 @@
 const Appjs = `
 import React from 'react';
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Welcome to create-fullstack-webpack (React)!</h1>
-      </header>
+    <div className='App'>
+        <h1>Welcome to
+          <br/>Fullstack Webpack!</h1>
+        <div className='description'>
+          <h4>Visit us at</h4>
+          <h3>https://github.com/Create-Fullstack-Webpack/create-fullstack-webpack-app</h3>
+        </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const inquirer = require('inquirer');
-const {spawnSync} = require('child_process');
+const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('./webpack');
@@ -94,9 +94,6 @@ inquirer
           name: 'Not now',
         },
         {
-          name: 'HtmlWebpackPlugin',
-        },
-        {
           name: 'CleanWebpackPlugin',
         },
         {
@@ -118,9 +115,9 @@ inquirer
 
     let {dependencies, devDependencies} = webpack(answers);
 
-    spawnSync('npm', ['init', '-y'], {stdio: 'inherit' });
-    spawnSync('npm', dependencies, {stdio: 'inherit' });
-    spawnSync('npm', devDependencies, {stdio: 'inherit' });
+    // spawnSync('npm', ['init', '-y'], {stdio: 'inherit' });
+    // spawnSync('npm', dependencies, {stdio: 'inherit' });
+    // spawnSync('npm', devDependencies, {stdio: 'inherit' });
 
   })
   .catch(err => console.log(err));
