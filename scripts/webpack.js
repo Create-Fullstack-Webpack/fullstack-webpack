@@ -32,7 +32,7 @@ module.exports = {
   let resolveExtensions = "'.js', ";
   let webpackPlugins = [];
   
-  let devDependencies = ['install', '--save-dev', 'webpack', 'webpack-cli', 'webpack-dev-server', 'nodemon'];
+  let devDependencies = ['install', '--save-dev', 'nodemon', 'webpack', 'webpack-cli', 'webpack-dev-server', 'html-webpack-plugin'];
   let dependencies = ['install', 'concurrently'];
   
   // Question 1: frontend
