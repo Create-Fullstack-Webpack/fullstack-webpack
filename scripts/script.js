@@ -107,17 +107,30 @@ inquirer
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
     console.log(answers);
 
-    webpack(answers);
+    let {dependencies, devDependencies} = webpack(answers);
 
-    // exec('npm install express', (err, stdout, stderr) => {
-    //   if (err) {
-    //     //some err occurred
-    //     console.error(err)
-    //   } else {
-    //    // the *entire* stdout and stderr (buffered)
-    //    console.log(`stdout: ${stdout}`);
-    //    console.log(`stderr: ${stderr}`);
-    //   }
-    // });
+    // console.log(dependencies);
+    // console.log(devDependencies);
+    exec(dependencies, (err, stdout, stderr) => {
+      if (err) {
+        //some err occurred
+        console.error(err)
+      } else {
+       // the *entire* stdout and stderr (buffered)
+       console.log(`stdout: ${stdout}`);
+       console.log(`stderr: ${stderr}`);
+      }
+    });
+
+    exec(devDependencies, (err, stdout, stderr) => {
+      if (err) {
+        //some err occurred
+        console.error(err)
+      } else {
+       // the *entire* stdout and stderr (buffered)
+       console.log(`stdout: ${stdout}`);
+       console.log(`stderr: ${stderr}`);
+      }
+    });
   })
   .catch(err => console.log(err));

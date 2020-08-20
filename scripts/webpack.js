@@ -36,13 +36,13 @@ function webpack(answers) {
   let resolveExtensions = "'.js', ";
   let webpackPlugins = [];
   
-  const selectionConditions = {}; //will store user selections that may alter how other loaders/rules are added to the webpack Obj above.
+  let devDependencies = ['npm install --save-dev', 'webpack', 'nodemon'];
+  let dependencies = ['npm install', 'concurrently'];
   
   // Question 1: frontend
   switch (answers['frontend']) {
     case 'React':
-      selectionConditions.react = 'react';
-
+      dependencies.push('react', 'react-dom');
       // Should we remove from this section since it's covered under transpilers?
       // moduleRules.push(`
       // {
@@ -83,9 +83,9 @@ function webpack(answers) {
     },
   }`);
     resolveExtensions += `'.jsx', `;
-
+    devDependencies.push('typescript', 'ts-loader');
+    devDependencies.push('@babel/core', '@babel/preset-env', '@babel/preset-react', 'babel-loader');
     generateFrontEnd('React', 'Typescript');
-
   } else if (answers.transpiler[0] == 'Typescript') {
     moduleRules.push(`
     {
@@ -95,7 +95,7 @@ function webpack(answers) {
     }
   `);
     resolveExtensions += `'.tsx', '.ts', `;
-
+    devDependencies.push('typescript', 'ts-loader');
     generateFrontEnd('React', 'Typescript');
 
   } else { // Babel
@@ -111,13 +111,14 @@ function webpack(answers) {
         },
       }`);
     resolveExtensions += `'.jsx', `;
-
+    devDependencies.push('@babel/core', '@babel/preset-env', '@babel/preset-react', 'babel-loader');
     generateFrontEnd('React', 'Babel');
   }
 
   // Question 3: backend
   switch (answers['backend']) {
     case 'Express':
+      dependencies.push('express');
       generateBackend('Express');
       break;
     default:
@@ -128,9 +129,11 @@ function webpack(answers) {
   // Question 4: test
   switch (answers['test']) {
     case 'Jest':
+      devDependencies.push('jest');
       generateTest('Jest');
       break;
     case 'Mocha':
+      devDependencies.push('mocha-loader', 'mocha');
       generateTest('Mocha');
       moduleRules.push(`
     {
@@ -148,7 +151,7 @@ function webpack(answers) {
   answers['styling'].forEach(styling => {
     switch (styling) {
       case 'CSS':
-        selectionConditions.css = 'css';
+        devDependencies.push('css-loader', 'style-loader');
         moduleRules.push(`
         {
           test: /\.css$/,
@@ -159,7 +162,7 @@ function webpack(answers) {
         }`);
         break;
       case 'SASS/SCSS':
-        selectionConditions.sass = 'sass';
+        devDependencies.push('css-loader', 'style-loader', 'sass-loader', 'sass');
         moduleRules.push(`
         {
           test: /\.scss$/,
@@ -179,18 +182,21 @@ function webpack(answers) {
   answers['plugins'].forEach(plugins => {
     switch (plugins) {
       case 'HtmlWebpackPlugin':
+        devDependencies.push('html-webpack-plugin');
         headers += `const HtmlWebpackPlugin = require('html-webpack-plugin');\n`;
         webpackPlugins.push(
           `new HtmlWebpackPlugin({appMountId: 'app',filename: 'index.html'})`);
         break;
       case 'CleanWebpackPlugin':
-        headers += `const MiniCssExtractPlugin = require('mini-css-extract-plugin');\n`;
+        devDependencies.push('clean-webpack-plugin');
+        headers += `const { CleanWebpackPlugin } = require('clean-webpack-plugin');\n`;
         webpackPlugins.push(
           `new CleanWebpackPlugin()`
         );
         break;
       case 'MiniCssExtractPlugin':
-        headers += `const { CleanWebpackPlugin } = require('clean-webpack-plugin');\n`;
+        devDependencies.push('mini-css-extract-plugin');
+        headers += `const MiniCssExtractPlugin = require('mini-css-extract-plugin');\n`;
         // if (selectionConditions.css || selectionConditions.scss) {
         //   //loop here through the rules to find the css test, then push the plugin into the rules array
         //   //loop through the rules to find the scss test, then push the plugin into the rules array
@@ -249,11 +255,15 @@ function webpack(answers) {
   obj = headers + obj;
 
   fs.writeFileSync(process.cwd() + '/webpack.config.js', obj, 'utf-8');
-  console.log(obj);
+
+  dependencies = dependencies.join(" ");
+  devDependencies = devDependencies.join(" ");
+  console.log('webpack.js: ', dependencies);
+  console.log('webpack.js: ', devDependencies);
+  return { 'dependencies': dependencies, 'devDependencies': devDependencies };
 }
 
 module.exports = webpack;
-
 
 
 /*
