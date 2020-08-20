@@ -8,7 +8,7 @@ Welcome to fullstack-webpack!  It's an app that simplifies webpack configuration
      ```
  2. Run the following command via NPM:
      ```
-     $ npx @rbls-org/fullstack-webpack
+     $ npx fullstack-webpack
      ```
  3. Select your preferred technologies through terminal prompts
  4. Begin coding! 
