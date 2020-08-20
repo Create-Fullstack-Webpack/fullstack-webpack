@@ -16,9 +16,9 @@ Welcome to create-fullstack-webpack-app. It's an app that makes building webpack
  Find create-fullstack-webpack-app on [Github](https://github.com/Create-Fullstack-Webpack/create-fullstack-webpack-app)
  
  ## Authors
-Stella Song - [Stella Song](https://github.com/xkiso)
-Liz Lotto - [Liz Lotto](https://github.com/elizlotto)
-Rob Nobile - [Rob Nobile](https://github.com/RobNobile)
+Stella Song - [Stella Song](https://github.com/xkiso)<br />
+Liz Lotto - [Liz Lotto](https://github.com/elizlotto)<br />
+Rob Nobile - [Rob Nobile](https://github.com/RobNobile)<br />
 Burak Caliskan - [Burak Caliskan](https://github.com/CaliskanBurak)
 
  ## Licence
