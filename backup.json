@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node scripts/script.js"
+    // "build": "NODE_ENV=production webpack",
+    // "dev-win": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open ./\" \"nodemon ./server/server.js\"",
+    // "dev": "NODE_ENV=development webpack-dev-server --open & nodemon server/server.js",
+    // "prod": "NODE_ENV=production node server/server.js"
   },
   "bin": {
     "create-fullstack-webpack-app": "scripts/script.js"

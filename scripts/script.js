@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const inquirer = require('inquirer');
-const {spawnSync} = require('child_process');
+const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('./webpack');
@@ -104,9 +104,6 @@ inquirer
           name: 'Not now',
         },
         {
-          name: 'HtmlWebpackPlugin',
-        },
-        {
           name: 'CleanWebpackPlugin',
         },
         {
@@ -126,14 +123,12 @@ inquirer
   ])
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
 
-    // generateJson();
+    generateJson();
     let {dependencies, devDependencies} = webpack(answers);
 
-    // console.log(dependencies);
-    // console.log(devDependencies);
-
-    spawnSync('npm', dependencies, {stdio: 'inherit' });
-    spawnSync('npm', devDependencies, {stdio: 'inherit' });
+    // spawnSync('npm', ['init', '-y'], {stdio: 'inherit' });
+    // spawnSync('npm', dependencies, {stdio: 'inherit' });
+    // spawnSync('npm', devDependencies, {stdio: 'inherit' });
 
   })
   .catch(err => console.log(err));

@@ -1,12 +1,9 @@
 let server = `
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const path = require('path');
-
-// require routers:
-
 
 // JSON parser:
 app.use(express.json());
@@ -14,10 +11,10 @@ app.use(express.json());
 // Webpack DevServer
 if (process.env.NODE_ENV === 'production') {
   // statically serve everything in the dist folder on the route
-  app.use('/', express.static(path.join(__dirname, '../dist')));
+  app.use('/dist', express.static(path.resolve(process.cwd(), './dist')));
   // serve index.html on the route '/'
   app.get('/', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
+    res.status(200).sendFile(path.resolve(process.cwd(), './client/src/index.html'));
   });
 }
 
@@ -39,7 +36,7 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(PORT, () => {
-  console.log(Server listening);
+  console.log('Magic happening on ' + PORT);
 });
 
 module.exports = app;
