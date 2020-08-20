@@ -3,8 +3,7 @@ const fs = require('fs');
 const server = require('./data/backend/server.js');
 
 function generateBackend( framework ) {
-  // framework = 'express';
-  // if (framework === 'express') {
+  if (framework === 'Express') {
     const dir = process.cwd() + '/server/';
     console.log(dir);
   
@@ -17,7 +16,7 @@ function generateBackend( framework ) {
           console.log(err);
       });
     });
-  // }
+  }
 }
 
 module.exports = generateBackend;
