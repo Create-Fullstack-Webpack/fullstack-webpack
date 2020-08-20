@@ -4,9 +4,9 @@ const generateTest = require('./generateTest');
 const generateFrontEnd = require('./generateFrontEnd');
 const generateBackend = require('./generateBackend');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 function webpack(answers) {
 
