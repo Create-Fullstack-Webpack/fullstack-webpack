@@ -1,24 +1,29 @@
 {
-  "name": "create-fullstack-webpack-app",
-  "version": "1.0.0",
+  "name": "@rbls-org/create-fullstack-webpack-app",
+  "version": "1.0.1",
   "description": "An app that makes building webpacks for fullstack applications simple.",
   "main": "scripts/script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node scripts/script.js"
   },
+  "bin": {
+    "create-fullstack-webpack-app": "scripts/script.js"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xkiso/create-fullstack-webpack-app.git"
+    "url": "git+https://github.com/Create-Fullstack-Webpack/create-fullstack-webpack-app.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xkiso/create-fullstack-webpack-app/issues"
+    "url": "https://github.com/Create-Fullstack-Webpack/create-fullstack-webpack-app/issues"
   },
-  "homepage": "https://github.com/xkiso/create-fullstack-webpack-app#readme",
+  "homepage": "https://github.com/Create-Fullstack-Webpack/create-fullstack-webpack-app#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
+    "figlet": "^1.5.0",
     "inquirer": "^7.3.3"
   },
   "devDependencies": {

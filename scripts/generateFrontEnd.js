@@ -13,9 +13,9 @@ function generateFrontEnd(technologies) {
   if (framework === 'React') {
   let dir = process.cwd() + '/client/';
     fs.mkdir(dir, (err) => {
-      if (err) console.log(err);
+      if (err) return console.log(err);
       fs.mkdir(dir + 'src', (err) => {
-        if (err) console.log(err);
+        if (err) return console.log(err);
 
         // reassign dir to ./client/src endpoint
         dir = process.cwd() + '/client/src/';
