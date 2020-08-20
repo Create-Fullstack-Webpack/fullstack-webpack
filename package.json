@@ -1,6 +1,6 @@
 {
   "name": "@rbls-org/fullstack-webpack",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An app that makes building webpacks for fullstack applications simple.",
   "main": "scripts/script.js",
   "scripts": {
