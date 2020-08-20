@@ -36,8 +36,8 @@ function webpack(answers) {
   let resolveExtensions = "'.js', ";
   let webpackPlugins = [];
   
-  let devDependencies = ['npm install --save-dev', 'webpack', 'nodemon'];
-  let dependencies = ['npm install', 'concurrently'];
+  let devDependencies = ['install', '--save-dev', 'webpack', 'nodemon'];
+  let dependencies = ['install', 'concurrently'];
   
   // Question 1: frontend
   switch (answers['frontend']) {
@@ -256,10 +256,10 @@ function webpack(answers) {
 
   fs.writeFileSync(process.cwd() + '/webpack.config.js', obj, 'utf-8');
 
-  dependencies = dependencies.join(" ");
-  devDependencies = devDependencies.join(" ");
-  console.log('webpack.js: ', dependencies);
-  console.log('webpack.js: ', devDependencies);
+  // dependencies = dependencies.join(" ");
+  // devDependencies = devDependencies.join(" ");
+  // console.log('webpack.js: ', dependencies);
+  // console.log('webpack.js: ', devDependencies);
   return { 'dependencies': dependencies, 'devDependencies': devDependencies };
 }
 
