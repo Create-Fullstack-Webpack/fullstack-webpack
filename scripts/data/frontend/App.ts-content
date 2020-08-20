@@ -1,6 +1,6 @@
 const Appts = `
 import React from 'react';
-import './App.css';
+import './index.css';
 
 interface Props {
    name:
