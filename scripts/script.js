@@ -5,6 +5,7 @@ const {spawnSync} = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('./webpack');
+const generateJson = require('./generateJson');
 const chalk = require('chalk');
 const figlet = require('figlet');
 
@@ -117,17 +118,15 @@ inquirer
     }
   ])
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
-    console.log('stop')
-    debugger
-    console.log('psot stop')
 
+    // generateJson();
     let {dependencies, devDependencies} = webpack(answers);
 
-    console.log(dependencies);
-    console.log(devDependencies);
+    // console.log(dependencies);
+    // console.log(devDependencies);
 
-    // spawnSync('npm', dependencies, {stdio: 'inherit' });
-    // spawnSync('npm', devDependencies, {stdio: 'inherit' });
+    spawnSync('npm', dependencies, {stdio: 'inherit' });
+    spawnSync('npm', devDependencies, {stdio: 'inherit' });
 
   })
   .catch(err => console.log(err));
