@@ -1,4 +1,4 @@
-# create-fullstack-webpack-app
+# fullstack-webpack
 Welcome to create-fullstack-webpack-app. It's an app that makes building webpacks for fullstack applications simple. Webpack app streamlines the process of building a webpack/project foundation by automating the process through a customizable npm package.
 
 ## Getting Started
@@ -6,7 +6,7 @@ Welcome to create-fullstack-webpack-app. It's an app that makes building webpack
  - Install your dependencies 
  - Run the following command
  ```
- npx @rbls-org/create-fullstack-webpack-app
+ npx @rbls-org/fullstack-webpack
  ```
  - Select your preferred technologies through terminal prompts
  - And you're done! 
