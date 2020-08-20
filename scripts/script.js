@@ -1,5 +1,7 @@
+#!/usr/bin/env node
+
 const inquirer = require('inquirer');
-const { exec } = require('child_process');
+const {spawnSync} = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('./webpack');
@@ -109,28 +111,8 @@ inquirer
 
     let {dependencies, devDependencies} = webpack(answers);
 
-    // console.log(dependencies);
-    // console.log(devDependencies);
-    exec(dependencies, (err, stdout, stderr) => {
-      if (err) {
-        //some err occurred
-        console.error(err)
-      } else {
-       // the *entire* stdout and stderr (buffered)
-       console.log(`stdout: ${stdout}`);
-       console.log(`stderr: ${stderr}`);
-      }
-    });
+    spawnSync('npm', dependencies, {stdio: 'inherit' });
+    spawnSync('npm', devDependencies, {stdio: 'inherit' });
 
-    exec(devDependencies, (err, stdout, stderr) => {
-      if (err) {
-        //some err occurred
-        console.error(err)
-      } else {
-       // the *entire* stdout and stderr (buffered)
-       console.log(`stdout: ${stdout}`);
-       console.log(`stderr: ${stderr}`);
-      }
-    });
   })
   .catch(err => console.log(err));
