@@ -68,16 +68,6 @@ inquirer
         'Mocha'
       ],
     },
-    // {
-    //   type: 'list',
-    //   name: 'ui',
-    //   message: '4. Are you using a UI framework?',
-    //   choices: [
-    //     'Not now',
-    //     'Bootstrap'
-    //   ],
-    // },
-
     {
       type: 'checkbox', //allows user to select multiple options
       name: 'styling',
@@ -126,9 +116,9 @@ inquirer
     generateJson();
     let {dependencies, devDependencies} = webpack(answers);
 
-    // spawnSync('npm', ['init', '-y'], {stdio: 'inherit' });
-    // spawnSync('npm', dependencies, {stdio: 'inherit' });
-    // spawnSync('npm', devDependencies, {stdio: 'inherit' });
+    spawnSync('npm', ['init', '-y'], {stdio: 'inherit' });
+    spawnSync('npm', dependencies, {stdio: 'inherit' });
+    spawnSync('npm', devDependencies, {stdio: 'inherit' });
 
   })
   .catch(err => console.log(err));

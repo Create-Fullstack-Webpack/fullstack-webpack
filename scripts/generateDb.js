@@ -3,7 +3,6 @@ const pgsqljs = require('./data/db/pgsql');
 const mongojs = require('./data/db/mongo');
 
 function generateDb(type) {
-  console.log('DB!!')
   let dir = process.cwd() + '/server/models/';
     fs.mkdir(dir, (err) => {
 
