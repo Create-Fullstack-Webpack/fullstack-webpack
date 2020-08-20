@@ -19,10 +19,11 @@ inquirer
     {
       type: 'list',
       name: 'frontend',
-      message: '1. Are you using a Frontend framework?',
+      message: '1. Select your Frontend framework:',
       choices: [
         'React',
       ],
+      default: 'React'
     },
     {
       type: 'checkbox', //allows user to select multiple options
@@ -84,6 +85,7 @@ inquirer
           name: 'SASS/SCSS'
         }
       ],
+      default: 'CSS'
     },
     {
       type: 'checkbox', //allows user to select multiple options
@@ -109,20 +111,23 @@ inquirer
       name: 'images and font',
       message: '7. Are you using images or font-families?',
       choices: [
-        'Not now',
+        'No',
         'Yes'
       ],
     }
   ])
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
+    console.log('stop')
+    debugger
+    console.log('psot stop')
 
     let {dependencies, devDependencies} = webpack(answers);
 
-    // console.log(dependencies);
-    // console.log(devDependencies);
+    console.log(dependencies);
+    console.log(devDependencies);
 
-    spawnSync('npm', dependencies, {stdio: 'inherit' });
-    spawnSync('npm', devDependencies, {stdio: 'inherit' });
+    // spawnSync('npm', dependencies, {stdio: 'inherit' });
+    // spawnSync('npm', devDependencies, {stdio: 'inherit' });
 
   })
   .catch(err => console.log(err));
