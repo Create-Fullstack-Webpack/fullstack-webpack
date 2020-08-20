@@ -200,14 +200,6 @@ module.exports = {
       case 'MiniCssExtractPlugin':
         devDependencies.push('mini-css-extract-plugin');
         headers += `const MiniCssExtractPlugin = require('mini-css-extract-plugin');\n`;
-        // if (selectionConditions.css || selectionConditions.scss) {
-        //   //loop here through the rules to find the css test, then push the plugin into the rules array
-        //   //loop through the rules to find the scss test, then push the plugin into the rules array
-        //   obj.module.rules.forEach(el => {
-        //     if (el.test === /\.css$/) el.use.push("MiniCssExtractPlugin.loader");
-        //     if (el.test === /\.scss$/) el.use.push("MiniCssExtractPlugin.loader");
-        //   })
-        // }
 
         webpackPlugins.push(
           `new MiniCssExtractPlugin()`
@@ -266,10 +258,6 @@ module.exports = {
 
   fs.writeFileSync(process.cwd() + '/webpack.config.js', obj, 'utf-8');
 
-  // dependencies = dependencies.join(" ");
-  // devDependencies = devDependencies.join(" ");
-  // console.log('webpack.js: ', dependencies);
-  // console.log('webpack.js: ', devDependencies);
   return { 'dependencies': dependencies, 'devDependencies': devDependencies };
 }
 
