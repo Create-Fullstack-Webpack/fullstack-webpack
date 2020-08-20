@@ -3,6 +3,7 @@ const fs = require('fs');
 const generateTest = require('./generateTest');
 const generateFrontEnd = require('./generateFrontEnd');
 const generateBackend = require('./generateBackend');
+const generateDb = require('./generateDb');
 
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -130,7 +131,22 @@ function webpack(answers) {
       break;
   }
 
-  // Question 4: test
+  // Question 4: db
+  switch (answers['db']) {
+    case 'PostgreSQL':
+      dependencies.push('pg');
+      generateDb('PostgreSQL');
+      break;
+    case 'MongoDB':
+      dependencies.push('mongodb');
+      generateDb('MongoDB');
+      break;
+    default:
+      // console.log('An error has occured with your selection, test');
+      break;
+  }
+  
+  // Question 5: test
   switch (answers['test']) {
     case 'Jest':
       devDependencies.push('jest');
@@ -151,7 +167,7 @@ function webpack(answers) {
       break;
   }
 
-  // Question 5: styling
+  // Question 6: styling
   answers['styling'].forEach(styling => {
     switch (styling) {
       case 'CSS':
@@ -184,7 +200,7 @@ function webpack(answers) {
     }
   });
 
-  // Question 6: plugins
+  // Question 7: plugins
   answers['plugins'].forEach(plugins => {
     switch (plugins) {
       case 'HtmlWebpackPlugin':
@@ -223,7 +239,7 @@ function webpack(answers) {
   });
 
 
-  //7. Are you using images or font-families?',
+  // Question 8: images and font-families,
   switch (answers['images and font']) {
     case 'Yes':
       moduleRules.push(`
