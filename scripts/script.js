@@ -5,6 +5,14 @@ const {spawnSync} = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('./webpack');
+const chalk = require('chalk');
+const figlet = require('figlet');
+
+console.log(
+  chalk.yellow(
+    figlet.textSync('Fullstack Webpack')
+  )
+)
 
 inquirer
   .prompt([
