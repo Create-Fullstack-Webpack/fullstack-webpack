@@ -1,4 +1,4 @@
-const indexcss = `
+const indexCssSassScss = `
 * {
   margin: 0;
   padding: 0;
@@ -15,4 +15,4 @@ body {
 
 `;
 
-module.exports = indexcss;
+module.exports = indexCssSassScss;
