@@ -31,6 +31,9 @@ function webpack(answers) {
     },
   `
   
+  // gather frontend technologies in object from swtich statements to pass into generateFrontEnd()
+  let frontEndTechnologies = {};
+
   let headers = `const path = require('path');\n`;
   let moduleRules = [];
   let resolveExtensions = "'.js', ";
@@ -43,6 +46,7 @@ function webpack(answers) {
   switch (answers['frontend']) {
     case 'React':
       dependencies.push('react', 'react-dom');
+      frontEndTechnologies['framework'] = 'React';
       // Should we remove from this section since it's covered under transpilers?
       // moduleRules.push(`
       // {
@@ -85,7 +89,7 @@ function webpack(answers) {
     resolveExtensions += `'.jsx', `;
     devDependencies.push('typescript', 'ts-loader');
     devDependencies.push('@babel/core', '@babel/preset-env', '@babel/preset-react', 'babel-loader');
-    generateFrontEnd('React', 'Typescript');
+    frontEndTechnologies['transpiler'] = 'Typescript';
   } else if (answers.transpiler[0] == 'Typescript') {
     moduleRules.push(`
     {
@@ -96,7 +100,7 @@ function webpack(answers) {
   `);
     resolveExtensions += `'.tsx', '.ts', `;
     devDependencies.push('typescript', 'ts-loader');
-    generateFrontEnd('React', 'Typescript');
+    frontEndTechnologies['transpiler'] = 'Typescript';
 
   } else { // Babel
     moduleRules.push(`
@@ -112,7 +116,7 @@ function webpack(answers) {
       }`);
     resolveExtensions += `'.jsx', `;
     devDependencies.push('@babel/core', '@babel/preset-env', '@babel/preset-react', 'babel-loader');
-    generateFrontEnd('React', 'Babel');
+    frontEndTechnologies['transpiler'] = 'Babel';
   }
 
   // Question 3: backend
@@ -160,6 +164,7 @@ function webpack(answers) {
             'css-loader'
           ]
         }`);
+        frontEndTechnologies['styling'] = 'CSS';
         break;
       case 'SASS/SCSS':
         devDependencies.push('css-loader', 'style-loader', 'sass-loader', 'sass');
@@ -172,6 +177,7 @@ function webpack(answers) {
             'sass-loader'
           ]
         }`);
+        frontEndTechnologies['styling'] = 'SASS/SCSS';
         break;
       default:
         break;
@@ -231,6 +237,9 @@ function webpack(answers) {
     default:
       break;
   }
+
+  // Create Frontend files
+  generateFrontEnd(frontEndTechnologies);
 
   // module.rules
   obj += '  module: {\n    rules: [\n';

@@ -115,9 +115,11 @@ inquirer
     }
   ])
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
-    console.log(answers);
 
     let {dependencies, devDependencies} = webpack(answers);
+
+    // console.log(dependencies);
+    // console.log(devDependencies);
 
     spawnSync('npm', dependencies, {stdio: 'inherit' });
     spawnSync('npm', devDependencies, {stdio: 'inherit' });
