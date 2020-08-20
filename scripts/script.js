@@ -111,6 +111,7 @@ inquirer
 
     let {dependencies, devDependencies} = webpack(answers);
 
+    spawnSync('npm', ['init', '-y'], {stdio: 'inherit' });
     spawnSync('npm', dependencies, {stdio: 'inherit' });
     spawnSync('npm', devDependencies, {stdio: 'inherit' });
 
