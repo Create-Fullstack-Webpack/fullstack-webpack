@@ -3,10 +3,11 @@ const tsconfigjson = `
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "module": "commonjs",
+    "module": "es6",
     "target": "es5",
     "jsx": "react",
-    "sourceMap": true
+    "sourceMap": true,
+    "esModuleInterop": true,
   },
   "include": ["./client/**/*"],
   "exclude": ["node_modules", "**/__tests__/*"]

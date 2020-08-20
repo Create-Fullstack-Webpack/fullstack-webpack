@@ -72,7 +72,7 @@ module.exports = {
     devDependencies.push('@babel/core', '@babel/preset-env', '@babel/preset-react', 'babel-loader');
     frontEndTechnologies['transpiler'] = 'Typescript';
   } else if (answers.transpiler[0] == 'Typescript') {
-    obj += `entry: './client/src/index.tsx',\n`;
+    obj += `  entry: './client/src/index.tsx',\n`;
     moduleRules.push(`
     {
       test: /\.ts(x)?$/,
@@ -85,7 +85,7 @@ module.exports = {
     frontEndTechnologies['transpiler'] = 'Typescript';
 
   } else { // Babel
-    obj += `entry: './client/src/index.js',\n`;
+    obj += `  entry: './client/src/index.js',\n`;
     moduleRules.push(`
     {
       test: /\.(js|jsx)$/,

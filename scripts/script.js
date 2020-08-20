@@ -123,7 +123,7 @@ inquirer
   ])
   .then((answers) => {  //answers will return an object based on the user's input. We will evaluate the object and determine what to install.
 
-    // generateJson();
+    generateJson();
     let {dependencies, devDependencies} = webpack(answers);
 
     // spawnSync('npm', ['init', '-y'], {stdio: 'inherit' });

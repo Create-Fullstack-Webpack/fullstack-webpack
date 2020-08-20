@@ -1,14 +1,8 @@
 const Appts = `
 import React from 'react';
 
-interface Props {
-   name:
-    string
-}
-
-class App extends React.Component<Props> {
+class App extends React.Component {
   render() {
-    const { name } = this.props;
     return (
       <>
         <div className='App'>
